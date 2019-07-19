@@ -10,23 +10,12 @@ const { createUser,
 const PORT = process.env.PORT || 3333;
 
 app.use(express.static('public'))
-
-// app.use(bodyParser.json()); 
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(bodyParser.json());
-
-
-// // without using middleware (placed before them)
-// app.get('/', (req, res) => {
-//   console.log("root directory");
-//   res.status(200).send({message: "this is root directory"});
-// });
 
 
 // route responsible for login the user into the system
