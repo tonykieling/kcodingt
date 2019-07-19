@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Card } from 'react-bootstrap';
+import { Button, Form, Card, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class Login extends Component {
@@ -27,8 +27,7 @@ class Login extends Component {
 
       if (this.state.email !== "" && this.state.password !== "") {
         const url = window.location.origin + "/login";
-        // const url = "http://localhost:3333/login";
-        console.log("login URL", url);
+        // const url = "http://localhost:3333/login";   // dev setting
         fetch( url, {  
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -107,12 +106,15 @@ class Login extends Component {
                 onKeyPress  = {this.handleChange}
                 ref         = {input => this.textInput2 = input }
               />
-              <p id="errorMsg">{ this.state.errorMsg }</p>
+              {/* <p id="errorMsg">{ this.state.errorMsg }</p> */}
             </Form.Group>
             
             <Button variant="primary" type="submit">
               Submit
             </Button>
+            <Container className="msgcolor">
+              {this.state.errorMsg}
+            </Container>
           </Form>
           </Card>
       </div>

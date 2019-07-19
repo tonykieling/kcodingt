@@ -12,7 +12,8 @@ class Register extends Component {
       password        : "",
       confirmPassword : "",
       redirectFlag    : false,
-      errorMsg        : ""
+      errorMsg        : "",
+      btnType         : undefined
     }
 
   handleChange = e => {
@@ -27,27 +28,44 @@ class Register extends Component {
             this.textInput3.focus();
           break;
         case "phone":
+          if (!parseInt(e.target.value) && e.target.value !== "") {
+            alert("Phone should have only numbers.");
+            break;
+          }
           this.textInput4.focus();
           break;
         case "password":
           if (this.state.password !== "")
             this.textInput5.focus();
           break;
+        case "confirmPassword":
+          if (this.state.confirmPassword !== "")
+            this.setState({ btnType: "submit" });
+          break;
         default:                     
       }
-    
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-    }
+
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+  }
 
   handleSubmit = e => {
     e.preventDefault();
 
     if (this.state.phone.length > 8){
-      alert(`Maximum length of Phone is
+      alert(`Phone's Maximum length is
                 10 numbers!`)
       this.textInput3.focus();
+    } else if (!parseInt(this.state.phone) && this.state.phone !== "") {
+      alert("Phone should have only numbers.");
+      this.textInput3.focus();
+    } else if (this.state.name.length > 60) {
+      alert("Name's maximun length is 60 characters.");
+      this.textInput1.focus();
+    } else if (this.state.email.length > 60) {
+      alert("Email's maximun length is 60 characters.");
+      this.textInput2.focus();
     } else if (this.state.email !== "" && this.state.name !== "" && this.state.password !== "" && this.state.confirmPassword !== "") {
       if (this.state.password !== this.state.confirmPassword) {
         alert("Password and \nConfirm Password fields\n\nMUST be the same.");
@@ -58,8 +76,7 @@ class Register extends Component {
         this.textInput4.focus();
       } else {
         const url = window.location.origin + "/user/new";
-        console.log("register URL:", url);
-        // const url = "http://localhost:3333/user/new";    // this is dev environment
+        // const url = "http://localhost:3333/user/new";    // this is dev setting
         fetch( url, {  
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -103,9 +120,6 @@ class Register extends Component {
     setTimeout(() => {
       this.setState({
         errorMsg        : "",
-        name            : "",
-        email           : "",
-        phone           : "",
         password        : "",
         confirmPassword : ""
       })
@@ -155,8 +169,8 @@ class Register extends Component {
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Phone number</Form.Label>
               <Form.Control
-                type        = "text"
-                placeholder = "Type the user's phone"
+                type        = "tel"
+                placeholder = "Type the user's phone (optional)"
                 name        = "phone"
                 onChange    = {this.handleChange}
                 value       = {this.state.phone}
@@ -191,10 +205,10 @@ class Register extends Component {
                 />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type={this.state.btnType}>
               Submit
             </Button>
-            <Container>
+            <Container className="msgcolor">
               {this.state.errorMsg}
             </Container>
           </Form>

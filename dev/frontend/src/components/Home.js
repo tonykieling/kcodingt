@@ -16,7 +16,7 @@ class Home extends Component {
           <Card.Header className="cardTitle">User Information</Card.Header>
           <Form>
             <Form.Group as={Row} controlId="formName">
-              <Form.Label column sm={1} className="card-label">Id</Form.Label>
+              <Form.Label column sm={1} className="card-label">Id:</Form.Label>
               <Col sm={10}>
                 <Form.Label column sm={10} >{this.props.storeId}</Form.Label>
               </Col>

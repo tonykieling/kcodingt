@@ -16,21 +16,20 @@ app.use(express.static('public'))
 app.use(cors());
 
 
-// middleware
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
 
-// without using middleware (placed before them)
-app.get('/', (req, res) => {
-  console.log("root directory");
-  res.status(200).send({message: "this is root directory"});
-});
+// // without using middleware (placed before them)
+// app.get('/', (req, res) => {
+//   console.log("root directory");
+//   res.status(200).send({message: "this is root directory"});
+// });
 
 
-// route responsable for login the user into the system
+// route responsible for login the user into the system
 app.post("/login", login);
 
 // route to create the user account

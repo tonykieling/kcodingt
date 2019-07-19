@@ -1,6 +1,7 @@
 const Pool = require('pg').Pool;
 
 // database access configuration
+// keeping here instead using .env due to information purpose
 const pool = new Pool({
   user      : 'ttognovcnkyhpm',
   host      : 'ec2-107-20-168-237.compute-1.amazonaws.com',
@@ -8,7 +9,7 @@ const pool = new Pool({
   password  : 'fb142cb5b7369a15c9aabf32f96a00931b382f1a7c2da079b2a5426d3fbc46c2',
   port      : 5432,
 });
-// old but working on local machine
+// old but working on local machine - dev environment
 // const pool = new Pool({
 //   user      : 'kcodingt',
 //   host      : 'localhost',
