@@ -2,12 +2,20 @@ const Pool = require('pg').Pool;
 
 // database access configuration
 const pool = new Pool({
-  user      : 'kcodingt',
-  host      : 'localhost',
-  database  : 'kcodingt',
-  password  : 'kcodingt',
+  user      : 'ttognovcnkyhpm',
+  host      : 'ec2-107-20-168-237.compute-1.amazonaws.com',
+  database  : 'd89msi596fhjf3',
+  password  : 'fb142cb5b7369a15c9aabf32f96a00931b382f1a7c2da079b2a5426d3fbc46c2',
   port      : 5432,
 });
+// old but working on local machine
+// const pool = new Pool({
+//   user      : 'kcodingt',
+//   host      : 'localhost',
+//   database  : 'kcodingt',
+//   password  : 'kcodingt',
+//   port      : 5432,
+// });
 
 
 /* 
