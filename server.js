@@ -41,7 +41,7 @@ app.post('/user/new', createUser);
 // pass these routes to your front end
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public', 'index.html'))
-})
+});
 
 
 app.listen(PORT, () => console.log(`Service is running on port ${PORT}`));
