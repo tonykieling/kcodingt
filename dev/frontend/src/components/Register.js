@@ -53,7 +53,7 @@ class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.state.phone.length > 8){
+    if (this.state.phone.length > 10){
       alert(`Phone's Maximum length is
                 10 numbers!`)
       this.textInput3.focus();
