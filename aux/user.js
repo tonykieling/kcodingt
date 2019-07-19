@@ -1,0 +1,118 @@
+const Pool = require('pg').Pool;
+
+// database access configuration
+const pool = new Pool({
+  user      : 'kcodingt',
+  host      : 'localhost',
+  database  : 'kcodingt',
+  password  : 'kcodingt',
+  port      : 5432,
+});
+
+
+/* 
+//  it is an auxiliary method which checks whether the email has already exists in the database, which means used by someone
+//  it should receive an email
+//  it returns true (if the email exists) or false (email does not exist yet) 
+*/
+checkEmail = email => {
+  console.log("### inside checkuserbyemail");
+
+  return new Promise((res, rej) => {
+    pool.query('SELECT * FROM users WHERE email = $1', [email], (error, result) => {
+      try {
+        if (error) {
+          throw error;
+        }
+        if (result.rowCount > 0) {
+          res(true);
+        } else {
+          res(false);
+        }
+      } catch (err) {
+        console.log("checkUserByEmail error: ", err.message);
+        rej({message: "CheckEmail - Something BAD has happened! Try it again."});
+      }
+    });
+  });
+}
+
+
+/*
+// it checks whether the email and password are ok for that particular user, allowing them to preceed into the system
+// it should receive: email and password
+// if it's okay, it return all user's data but password
+// if it's not okay, it returns a error message
+*/
+login = (req, res) => {
+  console.log("### inside login");
+  const user = req.body;
+  
+  pool.query('SELECT * FROM users WHERE email = $1', [user.email], (error, result) => {
+    try {
+      if (error) {
+        console.log(`userQuery error = ${error.message}`);
+        throw error;
+      }
+      if (result.rowCount > 0) {
+        const userFromQuery = result.rows[0];
+
+        if(user.password === userFromQuery.password){
+          res.send({
+            id           : userFromQuery.id,
+            email        : userFromQuery.email,
+            name         : userFromQuery.name,
+            phone        : userFromQuery.phone
+          });
+        } else {
+          res.send({message: "user/password is wrong!"});
+        }
+      } else {
+        res.send({message: "#user/password is wrong!"});
+      }
+    } catch (err) {
+      console.log("userQuery error: ", err.message);
+      res.send({message: "Login - Something BAD has happened! Try it again."});
+    }
+  });
+}
+
+
+/*
+// it creates the user account
+// it receives user's data:
+//  - email
+//  - name
+//  - password
+//  - phone number
+// it returns the user's data that has been created
+*/
+createUser = async (req, res) => {
+  console.log("### inside createUser");
+  const { name, email, password, phone } = req.body;
+
+  const result = await checkEmail(email);
+  if (result) {
+    res.send({message: `Email ${email} already exists.`});
+  } else {
+    pool.query('INSERT INTO users (email, name, password, phone) VALUES ($1, $2, $3, $4) RETURNING id, name, email, phone',
+      [email, name, password, phone], (error, result) => {
+        try {
+          if (error) {
+            console.log(`createUser error = ${error.message}`);
+            throw error;
+          }
+          const user = result.rows[0];
+          res.send(user);
+        } catch (err) {
+          console.log("createUser error: ", err.message);
+          res.send({message: "CreateUser - Something BAD has happened! Try it again."});
+        }
+      });
+  }
+}
+
+module.exports = {
+  login,
+  createUser
+};
