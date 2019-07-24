@@ -75,7 +75,8 @@ class Register extends Component {
         })
         this.textInput4.focus();
       } else {
-        const url = window.location.origin + "/user/new";
+        const url = "/user/new";
+        // const url = window.location.origin + "/user/new";
         // const url = "http://localhost:3333/user/new";    // this is dev setting
         fetch( url, {  
           method: "POST",

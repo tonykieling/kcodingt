@@ -26,8 +26,9 @@ class Login extends Component {
       event.preventDefault();
 
       if (this.state.email !== "" && this.state.password !== "") {
-        const url = window.location.origin + "/login";
+        const url = "/login"; // if the fetch is being made to the same machine, just consider the API place.
         // const url = "http://localhost:3333/login";   // dev setting
+        // const url = window.location.origin + "/login";
         fetch( url, {  
           method: "POST",
           headers: { "Content-Type": "application/json" },
