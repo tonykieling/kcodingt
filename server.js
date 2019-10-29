@@ -5,8 +5,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const checkAuth = require("./middleware/check-auth.js");
+
 const { createUser,
-        login } = require('./aux/user.js');
+        login,
+        get_all } = require('./aux/user.js');
 
 const PORT = process.env.PORT || 3333;
 
@@ -25,6 +28,8 @@ app.post("/login", login);
 // route to create the user account
 app.post('/user/new', createUser);
 
+// route to test the auth
+app.post("/user/userId", checkAuth, get_all);
 
 
 // // pass these routes to your front end

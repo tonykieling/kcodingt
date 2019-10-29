@@ -1,5 +1,7 @@
 const Pool = require('pg').Pool;
 
+const tokenCreation = require("../helpers/token.js").token_creation;
+
 // database access configuration
 // keeping here instead using .env due to information purpose
 // const pool = new Pool({
@@ -18,6 +20,10 @@ const pool = new Pool({
   port      : 5432,
 });
 
+const get_all = async(req, res) => {
+  console.log("IT WORKS!!!!!!!!!!!!");
+  res.json({});
+};
 
 /* 
 //  it is an auxiliary method which checks whether the email has already exists in the database, which means used by someone
@@ -57,7 +63,7 @@ login = (req, res) => {
   console.log("### inside login");
   const user = req.body;
   
-  pool.query('SELECT * FROM users WHERE email = $1', [user.email], (error, result) => {
+  pool.query('SELECT * FROM users WHERE email = $1', [user.email], async (error, result) => {
     try {
       if (error) {
         console.log(`userQuery error = ${error.message}`);
@@ -67,11 +73,15 @@ login = (req, res) => {
         const userFromQuery = result.rows[0];
 
         if(user.password === userFromQuery.password){
+          const token = await tokenCreation(userFromQuery);
+console.log("=== token", token);
+          // res.send({token});
           res.send({
             id           : userFromQuery.id,
             email        : userFromQuery.email,
             name         : userFromQuery.name,
-            phone        : userFromQuery.phone
+            phone        : userFromQuery.phone,
+            token
           });
         } else {
           res.send({message: "user/password is wrong!"});
@@ -123,5 +133,6 @@ createUser = async (req, res) => {
 
 module.exports = {
   login,
-  createUser
+  createUser,
+  get_all
 };

@@ -7,7 +7,6 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './components/store/store.js';
 
-console.log(Date.now());
 
 ReactDOM.render(
   <Provider store={store}>

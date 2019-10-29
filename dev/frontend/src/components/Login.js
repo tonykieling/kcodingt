@@ -39,6 +39,7 @@ class Login extends Component {
         })
         .then(response => response.json())
         .then((resJSON) => {
+console.log("====> resJSON", resJSON);
           if ('name' in resJSON){
             const user = resJSON;
             this.props.dispatchLogin({user})

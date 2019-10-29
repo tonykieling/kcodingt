@@ -1,0 +1,6 @@
+{
+  "env": {
+    "JWT_KEY": "#BigSecretKey789",
+    "JWT_expiration": "99d"
+  }
+}
