@@ -29,7 +29,7 @@ app.post("/login", login);
 app.post('/user/new', createUser);
 
 // route to test the auth
-app.post("/user/userId", checkAuth, get_all);
+app.post("/user/logged", checkAuth, get_all);
 
 
 // // pass these routes to your front end

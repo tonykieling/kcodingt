@@ -18,6 +18,7 @@ class Navega extends Component {
           <Navbar.Brand href="/">KcodingT</Navbar.Brand>
           <Nav>
             <Link to="/" className="nav-link">{this.props.storeEmail} is logged</Link>
+            <Link to="/user/logged" className="nav-link">Check all users</Link>
             <Button onClick={this.logout} className="logoutBtn">Logout</Button>
           </Nav>
         </Navbar>
@@ -31,6 +32,7 @@ class Navega extends Component {
         <Navbar.Brand href="/">KCodingT</Navbar.Brand>
         <Nav>
           <Link to="/login" className="nav-link">Login</Link>
+          {/* <Link to="/user/logged" className="nav-link">Check all users</Link> */}
           <Link to="/register" className="nav-link">Register</Link>
         </Nav>
       </Navbar>

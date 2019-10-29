@@ -20,9 +20,30 @@ const pool = new Pool({
   port      : 5432,
 });
 
-const get_all = async(req, res) => {
-  console.log("IT WORKS!!!!!!!!!!!!");
-  res.json({});
+const get_all = (req, res) => {
+  console.log("inside GET_ALL");
+    pool.query('SELECT * FROM users', [], (error, result) => {
+      try {
+        if (error) {
+          throw error;
+        }
+        if (result.rowCount > 0) {
+          console.log("result.rowCount: ", result.rowCount);
+          res.json({
+            message: {
+              count: result.rowCount,
+              message: result.rows.map(user => user.name)
+            }});
+        } else {
+          throw Error;
+        }
+      } catch (err) {
+        console.log("checkUserByEmail error: ", err.message);
+        res.json({
+          error: "ERRORRRRRRR"
+        });
+      }
+    });
 };
 
 /* 

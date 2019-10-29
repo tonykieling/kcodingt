@@ -8,6 +8,7 @@ import Home       from './components/Home';
 import Lands      from './components/Lands';
 import Login      from './components/Login';
 import Register   from './components/Register';
+import AllUsers   from "./components/AllUsers";
 import Error      from "./components/Error";
 
 class App extends Component {
@@ -42,6 +43,8 @@ class App extends Component {
               }} />
 
             <Route path="/register" component={Register} />
+
+            <Route path="/user/logged" component={AllUsers} />
 
             <Route component={Error} />
           </Switch>
