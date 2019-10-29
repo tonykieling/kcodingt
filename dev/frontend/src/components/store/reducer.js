@@ -9,7 +9,8 @@ const reducer = (state = initialState, action) => {
       id          : action.data.user.id,
       email       : action.data.user.email,
       name        : action.data.user.name,
-      phone       : action.data.user.phone
+      phone       : action.data.user.phone,
+      token       : action.data.user.token
     };
     saveState(newState);
 
@@ -18,7 +19,8 @@ const reducer = (state = initialState, action) => {
       id          : undefined,
       email       : undefined,
       name        : undefined,
-      phone       : undefined
+      phone       : undefined,
+      token       : undefined
     };
     clearUserLS();
   }

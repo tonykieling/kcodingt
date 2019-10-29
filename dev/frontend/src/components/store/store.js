@@ -6,7 +6,8 @@ const persistedData = {
   id          : getUser().id,
   email       : getUser().email,
   name        : getUser().name,
-  phone       : getUser().phone
+  phone       : getUser().phone,
+  token       : getUser().token
 }
 
 const store = createStore(

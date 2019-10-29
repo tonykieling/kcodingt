@@ -6,7 +6,8 @@ export const getUser = () => {
       id          : localStorage.getItem('id'),
       name        : localStorage.getItem('name'),
       email       : localStorage.getItem('email'),
-      phone       : localStorage.getItem("phone")
+      phone       : localStorage.getItem("phone"),
+      token       : localStorage.getItem("token")
     }
     return(user ? user : undefined);
 
@@ -21,6 +22,7 @@ export const saveState = user => {
     localStorage.setItem('email', user.email);
     localStorage.setItem('name', user.name);
     localStorage.setItem('phone', user.phone);
+    localStorage.setItem('token', user.token);
 
   } catch (err) {
     return err.message;
@@ -32,4 +34,6 @@ export const clearUserLS = () => {
   localStorage.removeItem('name');
   localStorage.removeItem('email');
   localStorage.removeItem("phone");
+  localStorage.removeItem('token');
+
 }
