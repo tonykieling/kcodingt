@@ -44,7 +44,13 @@ class App extends Component {
 
             <Route path="/register" component={Register} />
 
-            <Route path="/user/logged" component={AllUsers} />
+            <Route exact path="/user/logged" 
+                render = {() => {
+                  if(this.props.storeEmail)
+                    return <AllUsers />
+                  else
+                    return <Lands />
+                }}/>
 
             <Route component={Error} />
           </Switch>
